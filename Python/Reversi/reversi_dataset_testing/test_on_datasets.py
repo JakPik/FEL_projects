@@ -104,10 +104,12 @@ if __name__ == "__main__":
             else:
                 num_ok += 1
                 
-
-    print('Some moves on data set were wrong or overtime:')   
-    print('Ok moves:' + str(num_ok))      
-    print('Wrong moves:' + str(num_wrong_moves))   
-    print('Wrong move formats:' + str(num_wrong_moves_format))   
-    print('Moves take too long:' + str(num_overtimes))      
+    if num_overtimes == 0 and num_wrong_moves == 0  and num_wrong_moves_format == 0:
+        print('All moves on dataset are OK')      
+    else:
+        print('Some moves on data set were wrong or overtime:')   
+        print('Ok moves:' + str(num_ok))      
+        print('Wrong moves:' + str(num_wrong_moves))   
+        print('Wrong move formats:' + str(num_wrong_moves_format))   
+        print('Moves take too long:' + str(num_overtimes))      
 
