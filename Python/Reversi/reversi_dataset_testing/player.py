@@ -6,25 +6,27 @@ class MyPlayer:
         self.name = 'Jakub Pikal'
         self.my_color = my_color
         self.opponent_color = opponent_color
-        self.move_row = 4
-        self.move_column = 5
+        self.play_coord = [0 , 0]
         self.game_matrix = [MATRIX_SIZE][MATRIX_SIZE]
         self.move_matrix = [MATRIX_SIZE][MATRIX_SIZE]
         pass
 
-    def clear_move_matrix(self):
+    def matrix_read_position(self):
         for r in range(MATRIX_SIZE):
             for c in range(MATRIX_SIZE):
-                self.move_matrix [r][c] = 0
+                yield r, c
+
+    def clear_move_matrix(self):
+        for coord in self.matrix_read_position():
+                self.move_matrix [coord] = 0
 
     def move(self, board):
-        for r in range(MATRIX_SIZE):
-            for c in range(MATRIX_SIZE):
-                self.game_matrix [r][c] = board [r][c]
-                if(self.game_matrix [r][c] == self.my_color):
-                    self.near_check(r,c)
+        for coord in self.matrix_read_position():
+            self.game_matrix [coord] = board [coord]
+            if(self.game_matrix [coord] == self.my_color):
+                self.near_check(coord)
         self.play_move()
-        return (self.move_row,self.move_column)
+        return (self.play_coord)
     
     def check_bounds(self, row, column, skip):
         if ((row or column) < 0 or (row or column) > 7):
@@ -55,14 +57,9 @@ class MyPlayer:
     
     def play_move(self):
         max_value = 0
-        row_index = -1
-        column_index = -1
-        for r in range(MATRIX_SIZE):
-            for c in range(MATRIX_SIZE):
-                if(self.move_matrix [r][c] > max_value):
-                    max_value = self.move_matrix [r][c]
-                    row_index = r
-                    column_index = c
-        self.move_row = row_index
-        self.move_column = column_index
+        for coord in self.matrix_read_position():
+            if(self.move_matrix [coord] > max_value):
+                max_value = self.move_matrix [coord]
+                coord_index = coord
+        self.play_coord = coord_index
         return 0
