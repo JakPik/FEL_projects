@@ -16,7 +16,7 @@ void prime_number_decomposition(int input, int size, int pole[size + 1]);
 void prime_number_print(int input, int size, int pole[size + 1]);
 
 int main(void) {
-    int limit = 1000000;
+    int limit = 1000000; //
     int pole[limit + 1];
   int err = 0;
     int input = 1;
