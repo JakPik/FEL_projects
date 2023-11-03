@@ -10,6 +10,7 @@ def print_data(data):
         print()
     pass
 
+
 if __name__ == "__main__":
     n_rows = 5
     n_cols = 5
