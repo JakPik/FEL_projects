@@ -17,6 +17,10 @@
 #define FENCE_CONNECTION "-"
 #define FENCE_NO_CONNECTION " "
 
+//Constants
+#define MIN_INTERVAL 3
+#define MAX_INTERVAL 69
+
 // Variables used for house printing
 int width;
 int hight;
@@ -65,15 +69,13 @@ void Input_test(int input) { // Tests if the output of scanf is valid or not
         fprintf(stderr, "Error: Chybny vstup!\n");
         exit(ERROR_VSTUP);
     }
-    return 0;
 }
 
 void Interval_test(int input) { // Tests if input is from valid range
-    if (input < 3 || input > 69) {
+    if (input < MIN_INTERVAL || input > MAX_INTERVAL) {
         fprintf(stderr, "Error: Vstup mimo interval!\n");
         exit(ERROR_INTERVAL);
     }
-    return 0;
 }
 
 void Width_test(int input) { // Tests if width is odd number
@@ -81,7 +83,6 @@ void Width_test(int input) { // Tests if width is odd number
         fprintf(stderr, "Error: Sirka neni liche cislo!\n");
         exit(ERROR_SIRKA_LICHOST);
     }
-    return 0;
 }
 
 void Fence_size_test(int input, int hight) { // Tests if fence size in proper
@@ -90,7 +91,6 @@ void Fence_size_test(int input, int hight) { // Tests if fence size in proper
         fprintf(stderr, "Error: Neplatna velikost plotu!\n");
         exit(ERROR_VELIKOST_PLOTU);
     }
-    return 0;
 }
 
 void Print_fence(int fence, int *count) { // Prints out fence
