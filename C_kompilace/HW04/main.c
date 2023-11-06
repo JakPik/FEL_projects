@@ -86,7 +86,7 @@ int Rewrite_array(int limit, int size, int pole[limit + 1],
 
 void input_check(long input, int test) {
     if ((input < 0) || (test == 0)) {
-        fprintf(stderr, "Error: Chybny vstup! \n");
+        fprintf(stderr, "Error: Chybny vstup!\n");
         exit(ERROR_WRONG_INPUT);
     }
 
