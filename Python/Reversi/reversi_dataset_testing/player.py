@@ -30,7 +30,7 @@ class MyPlayer:
         self.play_move()
         return (self.row_coord, self.column_coord)
     
-    def check_bounds(self, row, column, skip):
+    def check_bounds(self, row, column):
         if ((row or column) < 0 or (row or column) > 7):
             skip = True
         else:
