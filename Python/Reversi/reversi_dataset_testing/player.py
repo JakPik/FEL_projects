@@ -45,7 +45,6 @@ class MyPlayer:
                     break
                 if(self.game_matrix[row + r][column + c] == self.opponent_color):
                     self.line_check_set(row + r, column + c, r, c)
-                print(self.move_matrix[r,c])
         return 0
 
     def line_check_set(self, row, column, row_coef, column_coef):
@@ -71,8 +70,6 @@ class MyPlayer:
                 coord_index_optimal = coord
         if(coord_index_optimal == [-1,-1]):
             self.play_coord = coord_index
-            print("optimal")
         else:
             self.play_coord = coord_index_optimal
-            print("none")
         return 0
