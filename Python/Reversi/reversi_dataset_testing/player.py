@@ -2,7 +2,7 @@ MATRIX_SIZE = 8
 
 class MyPlayer:
     """Player"""
-    def __init__(self, my_color,opponent_color):
+    def __init__(self, my_color = 0,opponent_color = 0):
         self.name = "Jakub Pikal"
         self.my_color = my_color
         self.opponent_color = opponent_color
