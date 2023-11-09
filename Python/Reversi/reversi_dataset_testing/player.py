@@ -26,7 +26,7 @@ class MyPlayer:
             if(self.game_matrix [coord] == self.my_color):
                 self.near_check(coord)
         self.play_move()
-        return (self.play_coord)
+        return self.play_coord
     
     def check_bounds(self, row, column, skip):
         if ((row or column) < 0 or (row or column) > 7):
@@ -43,6 +43,7 @@ class MyPlayer:
                     break
                 if(self.game_matrix[row + r][column + c] == self.opponent_color):
                     self.line_check_set(row + r, column + c, r, c)
+                print(self.move_matrix[r,c])
         pass
 
     def line_check_set(self, row, column, row_coef, column_coef):
@@ -57,9 +58,20 @@ class MyPlayer:
     
     def play_move(self):
         max_value = 0
+        coord_index_optimal = [-1,-1]
+        coord_index = [-1,-1]
         for coord in self.matrix_read_position():
-            if(self.move_matrix [coord] > max_value):
+            if(self.move_matrix [coord] > max_value and [1,1] < [coord] < [8,8]):
                 max_value = self.move_matrix [coord]
-                coord_index = coord
-        self.play_coord = coord_index
+                coord_index_optimal = coord
+            elif(self.move_matrix [coord] > max_value):
+                max_value = self.move_matrix [coord]
+                coord_index_optimal = coord
+        if(coord_index_optimal == [-1,-1]):
+            self.play_coord = coord_index
+            print("optimal")
+        else:
+            self.play_coord = coord_index_optimal
+            print("none")
         return 0
+    
