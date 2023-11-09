@@ -1,4 +1,12 @@
 MATRIX_SIZE = 8
+MY_MATRIX = [[0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0]]
 
 class MyPlayer:
     """Player"""
@@ -7,8 +15,8 @@ class MyPlayer:
         self.my_color = my_color
         self.opponent_color = opponent_color
         self.play_coord = [0 , 0]
-        self.game_matrix = [MATRIX_SIZE][MATRIX_SIZE]
-        self.move_matrix = [MATRIX_SIZE][MATRIX_SIZE]
+        self.game_matrix = MY_MATRIX
+        self.move_matrix = MY_MATRIX
         pass
 
     def matrix_read_position(self):
