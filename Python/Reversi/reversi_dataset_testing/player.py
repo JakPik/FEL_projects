@@ -15,10 +15,12 @@ class MyPlayer:
         for r in range(MATRIX_SIZE):
             for c in range(MATRIX_SIZE):
                 yield r, c
+        return 0
 
     def clear_move_matrix(self):
         for coord in self.matrix_read_position():
                 self.move_matrix [coord] = 0
+        return 0
 
     def move(self, board):
         for coord in self.matrix_read_position():
