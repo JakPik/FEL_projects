@@ -3,7 +3,7 @@ MATRIX_SIZE = 8
 class MyPlayer:
     """Player"""
     def __init__(self, my_color,opponent_color):
-        self.name = 'Jakub Pikal'
+        self.name = "Jakub Pikal"
         self.my_color = my_color
         self.opponent_color = opponent_color
         self.play_coord = [0 , 0]
@@ -76,4 +76,3 @@ class MyPlayer:
             self.play_coord = coord_index_optimal
             print("none")
         return 0
-    
