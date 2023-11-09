@@ -1,12 +1,4 @@
 MATRIX_SIZE = 8
-MY_MATRIX = [[0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0],
-           [0,0,0,0,0,0,0,0]]
 
 class MyPlayer:
     """Player"""
@@ -39,7 +31,7 @@ class MyPlayer:
             if(self.game_matrix [coord] == self.my_color):
                 self.near_check(coord)
         self.play_move()
-        return self.play_coord[0] , self.play_coord[1]
+        return (self.play_coord[0] ,self.play_coord[1])
     
     def check_bounds(self, row, column, skip):
         if ((row or column) < 0 or (row or column) > 7):
@@ -84,3 +76,4 @@ class MyPlayer:
         else:
             self.play_coord = coord_index_optimal
         return 0
+    
