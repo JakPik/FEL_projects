@@ -6,7 +6,8 @@ class MyPlayer:
         self.name = "Jakub Pikal"
         self.my_color = my_color
         self.opponent_color = opponent_color
-        self.play_coord = [0 , 0]
+        self.row_coord = 0
+        self.column_coord = 0
         self.game_matrix = self.create_matrix()
         self.move_matrix = self.create_matrix()
         pass
@@ -14,24 +15,20 @@ class MyPlayer:
     def create_matrix(self):
         return [[0 for _ in range (MATRIX_SIZE)] for _ in range(MATRIX_SIZE)]
 
-    def matrix_read_position(self):
+    def clear_move_matrix(self):
         for r in range(MATRIX_SIZE):
             for c in range(MATRIX_SIZE):
-                yield r, c
-        return 0
-
-    def clear_move_matrix(self):
-        for coord in self.matrix_read_position():
-                self.move_matrix [coord] = 0
+                self.move_matrix [r][c] = 0
         return 0
 
     def move(self, board):
-        for coord in self.matrix_read_position():
-            self.game_matrix [coord] = board [coord]
-            if(self.game_matrix [coord] == self.my_color):
-                self.near_check(coord)
+        for r in range(MATRIX_SIZE):
+            for c in range(MATRIX_SIZE):
+                self.game_matrix [r][c] = board [r][c]
+                if(self.game_matrix [r][c] == self.my_color):
+                    self.near_check(r,c)
         self.play_move()
-        return (self.play_coord[0] ,self.play_coord[1])
+        return self.row_coord, self.column_coord
     
     def check_bounds(self, row, column, skip):
         if ((row or column) < 0 or (row or column) > 7):
@@ -62,18 +59,30 @@ class MyPlayer:
     
     def play_move(self):
         max_value = 0
-        coord_index_optimal = [-1,-1]
-        coord_index = [-1,-1]
-        for coord in self.matrix_read_position():
-            if(self.move_matrix [coord] > max_value and [1,1] < [coord] < [8,8]):
-                max_value = self.move_matrix [coord]
-                coord_index_optimal = coord
-            elif(self.move_matrix [coord] > max_value):
-                max_value = self.move_matrix [coord]
-                coord_index_optimal = coord
-        if(coord_index_optimal == [-1,-1]):
-            self.play_coord = coord_index
+        max_value_optimal = 0
+        row_idx_optimal = -1
+        column_idx_optimal = -1
+        row_idx = -1
+        column_idx = -1
+        for r in range(MATRIX_SIZE):
+            for c in range(MATRIX_SIZE):
+                if(self.move_matrix [r][c] > max_value and 1 != r != 6 and 1 != r != 6):
+                    max_value = self.move_matrix [r][c]
+                    max_value_optimal = max_value
+                    row_idx_optimal = r
+                    column_idx_optimal = c
+                elif(self.move_matrix [r][c] > max_value):
+                    max_value = self.move_matrix [r][c]
+                    row_idx = r
+                    column_idx = c
+        if(max_value_optimal >= max_value):
+            self.row_coord = row_idx_optimal
+            self.column_coord = column_idx_optimal
+        elif(row_idx_optimal != -1 and column_idx_optimal != -1):
+            self.row_coord = row_idx_optimal
+            self.column_coord = column_idx_optimal
         else:
-            self.play_coord = coord_index_optimal
+            self.row_coord = row_idx
+            self.column_coord = column_idx
         return 0
     
