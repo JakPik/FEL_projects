@@ -9,7 +9,7 @@ class MyPlayer:
         self.play_coord = [0 , 0]
         self.game_matrix = [MATRIX_SIZE][MATRIX_SIZE]
         self.move_matrix = [MATRIX_SIZE][MATRIX_SIZE]
-        pass
+        return 0
 
     def matrix_read_position(self):
         for r in range(MATRIX_SIZE):
@@ -44,7 +44,7 @@ class MyPlayer:
                 if(self.game_matrix[row + r][column + c] == self.opponent_color):
                     self.line_check_set(row + r, column + c, r, c)
                 print(self.move_matrix[r,c])
-        pass
+        return 0
 
     def line_check_set(self, row, column, row_coef, column_coef):
         count = 1
