@@ -15,9 +15,12 @@ class MyPlayer:
         self.my_color = my_color
         self.opponent_color = opponent_color
         self.play_coord = [0 , 0]
-        self.game_matrix = MY_MATRIX
-        self.move_matrix = MY_MATRIX
+        self.game_matrix = self.create_matrix()
+        self.move_matrix = self.create_matrix()
         pass
+
+    def create_matrix(self):
+        return [[0 for _ in range (MATRIX_SIZE)] for _ in range(MATRIX_SIZE)]
 
     def matrix_read_position(self):
         for r in range(MATRIX_SIZE):
