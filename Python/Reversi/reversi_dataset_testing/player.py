@@ -2,14 +2,14 @@ MATRIX_SIZE = 8
 
 class MyPlayer:
     """Player"""
-    def __init__(self, my_color, opponent_color):
+    def __init__(self, my_color,opponent_color):
         self.name = 'Jakub Pikal'
         self.my_color = my_color
         self.opponent_color = opponent_color
         self.play_coord = [0 , 0]
         self.game_matrix = [MATRIX_SIZE][MATRIX_SIZE]
         self.move_matrix = [MATRIX_SIZE][MATRIX_SIZE]
-        return 0
+        pass
 
     def matrix_read_position(self):
         for r in range(MATRIX_SIZE):
