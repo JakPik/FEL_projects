@@ -28,7 +28,7 @@ class MyPlayer:
                 if(self.game_matrix [r][c] == self.my_color):
                     self.near_check(r,c)
         self.play_move()
-        return self.row_coord, self.column_coord
+        return (self.row_coord, self.column_coord)
     
     def check_bounds(self, row, column, skip):
         if ((row or column) < 0 or (row or column) > 7):
