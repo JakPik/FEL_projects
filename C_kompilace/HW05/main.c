@@ -39,6 +39,8 @@ int main(void) {
     char *heard = read_line(&size);
     int permutation = shift(&*heard, &*cipher, size);
     print_result(&*cipher, permutation, size);
+    free(cipher);
+    free(heard);
     return 0;
 }
 
@@ -161,6 +163,7 @@ int shift(const char *heard, const char *str, int size) {
         similar[i] = compare(permutate, heard, size);
     }
     int index = find_permutation(&*similar);
+    free(permutate);
     return index;
 }
 
