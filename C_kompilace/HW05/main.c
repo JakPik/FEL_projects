@@ -168,7 +168,9 @@ int shift(const char *heard, const char *str, int size) {
 }
 
 void print_result(char *cipher, int permutation, int size) {
-    permutate_text(&*cipher, size, permutation);
+    for(int i = 0; i < permutation; i++) {
+        permutate_text(&*cipher, size, 1);
+    }
 
     for (int i = 0; i < size; i++) {
         printf("%c", cipher[i]);
