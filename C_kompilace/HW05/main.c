@@ -35,7 +35,6 @@ void print_result(char *cipher, int permutation, int size);
 
 int main(void) {
     int size = 0;
-    int pos = 0;
     char *cipher = read_line(&size);
     char *heard = read_line(&size);
     int permutation = shift(&*heard, &*cipher, size);
@@ -167,7 +166,7 @@ int shift(const char *heard, const char *str, int size) {
 
 void print_result(char *cipher, int permutation, int size) {
     permutate_text(&*cipher, size, permutation);
-    
+
     for (int i = 0; i < size; i++) {
         printf("%c", cipher[i]);
     }
