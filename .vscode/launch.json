@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/jakub/Desktop/FEL/Semestr_1/Programování/C_kompilace/HW05",
-      "program": "c:/Users/jakub/Desktop/FEL/Semestr_1/Programování/C_kompilace/HW05/build/Debug/outDebug",
+      "cwd": "c:/Users/jakub/Desktop/FEL/Semestr_1/Programování/C_kompilace/HW06",
+      "program": "c:/Users/jakub/Desktop/FEL/Semestr_1/Programování/C_kompilace/HW06/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
