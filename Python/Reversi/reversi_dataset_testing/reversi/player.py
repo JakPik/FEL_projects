@@ -1,11 +1,15 @@
+import random
 MATRIX_SIZE = 8
  
 class MyPlayer:
-    """Player"""
+    """Analyzuje nejvýhodnější tah s ideálním poměrem zisku a ztráty"""
     def __init__(self, my_color = 0,opponent_color = 0):
-        self.name = "Jakub Pikal"
+        self.round = 0
+        self.name = "pikaljak"
         self.my_color = my_color
         self.opponent_color = opponent_color
+        self.row_coord = 0
+        self.column_coord = 0
         self.game_matrix = self.create_matrix()
         self.move_matrix = self.create_matrix()
         pass
@@ -19,6 +23,7 @@ class MyPlayer:
         return 0
  
     def move(self, board):
+        self.round += 1
         row_coord = 0
         column_coord = 0
         self.clear_move_matrix()
@@ -39,6 +44,8 @@ class MyPlayer:
         return skip
  
     def near_check(self, row, column):
+        ## checks around current position and that for every oponent stone
+        ## that it finds around it self calls line_check_set
         for r in range(-1,2):
             for c in range(-1,2):
                 if(self.check_bounds(row + r, column + c) == False):
@@ -47,6 +54,9 @@ class MyPlayer:
         return 0
  
     def line_check_set(self, row, column, row_coef, column_coef):
+        ## this function checks how many stones are in one line and than
+        ## it checks if my stone can be placed in this line. if yes
+        ## than it returns number of taken stones on the coresponding coord
         count = 1
         keep_checking = True
         while(keep_checking == True):
@@ -83,7 +93,32 @@ class MyPlayer:
             return False
         return True
 
-    def predict_move(self, row, column):
+    def predict_enemy_move(self, row, column):
+        ## it creates its own matrix on which it runs oponets move prediction
+        ## than it calculates mid value of gain or loss for the oponents turn
+        count = 0
+        total_value = 0
+        new_matrix = self.create_matrix()
+        for r, c in self.matrix_coord_gen():
+            if(r == row and c == column):
+                new_matrix[r][c] = self.my_color
+            else:
+                new_matrix[r][c] = self.game_matrix[r][c]
+        for r,c in self.matrix_coord_gen():
+            if(self.game_matrix [r][c] == self.my_color):
+                for row, column, value in self.near_check(r,c):
+                    my_move_value = self.predict_my_move(r,c)
+                    total_value += value
+                    total_value -= my_move_value
+                    count += 1
+        total_value = total_value/count
+        return total_value
+    
+    def predict_my_move(self, row, column):
+        ## this function does the same thing as predict_enemy_move but for
+        ## my player from oponents perspective. it than calculates mid value
+        ## of gain and loss
+        count = 0
         total_value = 0
         new_matrix = self.create_matrix()
         for r, c in self.matrix_coord_gen():
@@ -95,9 +130,14 @@ class MyPlayer:
             if(self.game_matrix [r][c] == self.my_color):
                 for row, column, value in self.near_check(r,c):
                     total_value += value
-        return total_value
+                    count += 1
+        return total_value/count
 
     def play_move(self, move_matrix):
+        ## this function goes through the whole matrix and evaluates
+        ## each position value based on the highest value number
+        ## it also diferenciates between safe and unsafe placements
+        ## of the stone.
         number_of_indexes = -1
         predict_value = []
         idx = []
@@ -108,19 +148,21 @@ class MyPlayer:
         for r,c in self.matrix_coord_gen():
             if(move_matrix[r][c] > max_value_optimal and self.optima_check(r,c) == True):
                 max_value_optimal = move_matrix [r][c]
-                predict_value.append(max_value_optimal - self.predict_move(r, c))
+                predict_value.append(max_value_optimal - self.predict_enemy_move(r, c))
                 idx.append(1)
                 row_idx.append(r)
                 column_idx.append(c)
                 number_of_indexes += 1
             elif(move_matrix[r][c] > max_value):
                 max_value = move_matrix [r][c]
-                predict_value.append(max_value - self.predict_move(r, c))
+                predict_value.append(max_value - self.predict_enemy_move(r, c))
                 idx.append(-1)
                 row_idx.append(r)
                 column_idx.append(c)
                 number_of_indexes += 1
         choice = self.pick_strategy(number_of_indexes, predict_value, idx)
+        if(self.round < 3):
+            choice = random
         return row_idx[choice], column_idx[choice]
         
     def pick_strategy(self, number_of_indexes, predict_value, idx):

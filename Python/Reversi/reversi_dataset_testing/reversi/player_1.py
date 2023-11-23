@@ -6,8 +6,6 @@ class MyPlayer:
         self.name = "Jakub Pikal"
         self.my_color = my_color
         self.opponent_color = opponent_color
-        self.row_coord = 0
-        self.column_coord = 0
         self.game_matrix = self.create_matrix()
         self.move_matrix = self.create_matrix()
         pass
@@ -85,23 +83,7 @@ class MyPlayer:
             return False
         return True
 
-    def predict_enemy_move(self, row, column):
-        total_value = 0
-        new_matrix = self.create_matrix()
-        for r, c in self.matrix_coord_gen():
-            if(r == row and c == column):
-                new_matrix[r][c] = self.my_color
-            else:
-                new_matrix[r][c] = self.game_matrix[r][c]
-        for r,c in self.matrix_coord_gen():
-            if(self.game_matrix [r][c] == self.my_color):
-                for row, column, value in self.near_check(r,c):
-                    my_move_value = self.predict_my_move(r,c)
-                    total_value += value
-                    total_value -= my_move_value/2
-        return total_value
-    
-    def predict_my_move(self, row, column):
+    def predict_move(self, row, column):
         total_value = 0
         new_matrix = self.create_matrix()
         for r, c in self.matrix_coord_gen():
@@ -126,14 +108,14 @@ class MyPlayer:
         for r,c in self.matrix_coord_gen():
             if(move_matrix[r][c] > max_value_optimal and self.optima_check(r,c) == True):
                 max_value_optimal = move_matrix [r][c]
-                predict_value.append(max_value_optimal - self.predict_enemy_move(r, c))
+                predict_value.append(max_value_optimal - self.predict_move(r, c))
                 idx.append(1)
                 row_idx.append(r)
                 column_idx.append(c)
                 number_of_indexes += 1
             elif(move_matrix[r][c] > max_value):
                 max_value = move_matrix [r][c]
-                predict_value.append(max_value - self.predict_enemy_move(r, c))
+                predict_value.append(max_value - self.predict_move(r, c))
                 idx.append(-1)
                 row_idx.append(r)
                 column_idx.append(c)
