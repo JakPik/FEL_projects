@@ -1,16 +1,16 @@
 def read_classification_from_file(filepath):
     dictonary = {}
     with open(filepath, 'rt', encoding='utf-8') as f:
-        for _, text in enumerate(f):
-            string, numbers = separate_text_and_number(text)
-            dictonary[string] = numbers
+        for line in f:
+            string, result = line.split()
+            dictonary[string] = result
     return dictonary
 
 def write_classification_to_file(dictonary):
     with open("result.txt", 'wt', encoding="utf-8") as f:
         for letters in dictonary:
             numbers = dictonary[letters]
-            string = f"{letters} ... {numbers}\n"
+            string = f"{letters}  {numbers}\n"
             f.write(string)
 
 
