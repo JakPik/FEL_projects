@@ -3,9 +3,8 @@ import random
 from corpus import Corpus
 
 class BaseFilter:
-    def __init__(self, folder_path, input = None, file = "!truth.txt"):
-        self.result = input
-        self.input = input
+    def __init__(self, folder_path, file = "!truth.txt"):
+        self.result
         self.folder_path = folder_path
         self.file = file
 
@@ -16,10 +15,9 @@ class BaseFilter:
             for _ in Corpus(self.folder_path).emails():
                 if(first == True):
                     f.write("\n")
-                if(self.input == None):
-                    if(random.randint(0, 1) == 0):
-                        self.result = "SPAM"
-                    else:
-                        self.result = "OK"
+                self.result = self.calculate_result()
                 first = True
                 f.write(self.result)
+                
+    def calculate_result(self):
+        raise NotImplementedError("Implement")

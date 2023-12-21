@@ -9,7 +9,7 @@ class Corpus:
             if filename.startswith('!'):
                 continue
             file_path = os.path.join(self.mail_folder_path, filename)
-            with open(file_path, 'r', encoding="utf-8") as f:
-                body = f.read()
+            with open(file_path, 'r', encoding="utf-8") as file:
+                body = file.read()
 
             yield filename, body
