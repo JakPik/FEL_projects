@@ -12,14 +12,12 @@ class BaseFilter:
         first = False
         file = os.path.join(self.folder_path, self.file)
         with open(file, "w", encoding="utf-8")as f:
-            for filename, body in Corpus(self.folder_path).emails():
+            for _ in Corpus(self.folder_path).emails():
                 if(first == True):
                     f.write("\n")
-                self.result = self.calculate_result(body)
+                self.result = self.calculate_result()
                 first = True
-                write = None
-                write = filename + " " + "".join(self.result)
-                f.write(write)
+                f.write(self.result)
                 
-    def calculate_result(self, body):
+    def calculate_result(self):
         raise NotImplementedError("Implement")

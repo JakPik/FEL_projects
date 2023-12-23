@@ -5,21 +5,21 @@ class NaiveFilter(BaseFilter):
     def test(folder_path):
         BaseFilter(folder_path, "!truth_OK").write_to_file()
 
-    def calculate_result(self, body):
+    def calculate_result(self):
         return "OK"
 
 class ParanoidFilter(BaseFilter):
     def test(folder_path):
         BaseFilter(folder_path, "!truth_SPAM").write_to_file()
         
-    def calculate_result(self, body):
+    def calculate_result(self):
         return "SPAM"
 
 class RandomFilter(BaseFilter):
     def test(folder_path):
         BaseFilter(folder_path).write_to_file()
         
-    def calculate_result(self, body):
+    def calculate_result(self):
         if(random.randint(0, 1) == 0):
             result = "SPAM"
         else:
